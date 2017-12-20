@@ -1,0 +1,21 @@
+web:
+  build: ./apache-php
+  ports:
+    - "8001:80"
+  volumes:
+    - ./www:/var/www/html
+  links:
+    - database:database
+
+# MySQL Server
+database:
+  image: mariadb:10
+  environment:
+    MYSQL_USER: drupal
+    MYSQL_PASSWORD: drupal
+    MYSQL_DATABASE: drupal
+    MYSQL_ROOT_PASSWORD: 'drupal'
+  volumes:
+    - ./mysql:/var/lib/mysql
+  ports:
+    - "3307:3306"
